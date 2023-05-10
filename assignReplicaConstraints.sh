@@ -113,10 +113,10 @@ echo "Getting the list of topics"
 if [[ -z "${SCRIPT_COMMAND_CONFIG}" ]]
 then
     echo "Executing without Command Config"
-    kafka-topics  --bootstrap-server ${SCRIPT_BOOTSTRAP_SERVERS} --list > ${SCRIPT_TOPIC_FILE_NAME}
+    kafka-topics  --bootstrap-server ${SCRIPT_BOOTSTRAP_SERVERS} --list | grep -E "^(_|confluent|connect)" > ${SCRIPT_TOPIC_FILE_NAME}
 else
     echo "Executing with Command Config"
-    kafka-topics  --bootstrap-server ${SCRIPT_BOOTSTRAP_SERVERS} --command-config ${SCRIPT_COMMAND_CONFIG} --list > ${SCRIPT_TOPIC_FILE_NAME}
+    kafka-topics  --bootstrap-server ${SCRIPT_BOOTSTRAP_SERVERS} --command-config ${SCRIPT_COMMAND_CONFIG} --list | grep -E "^(_|confluent|connect)" > ${SCRIPT_TOPIC_FILE_NAME}
 fi
 
 if [[ "$ONLY_DESCRIBE_TOPICS" == true ]]
